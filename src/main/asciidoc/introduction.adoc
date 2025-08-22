@@ -1,14 +1,17 @@
+= Introduction
+[[introduction]]
+
 This plugin adds an annotation on Enums to easy add and implement the `MessageSourceResolvable` interface. It was heavily
 inspired by this blog-entry by http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html[Rob Fletcher]
 
-### If you use it, let me know
+== If you use it, let me know
 
 If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
-Send me a tweet *@sbglasius* or an email *soeren@glasius.dk* - thank you!
+Send me a tweet *@sbglasius*, send an email *soeren@glasius.dk*, or give it a ⭐ on GitHub - thank you!
 
-### Documentation for pre 2.x version of this plugin
+== Documentation for pre 2.x version of this plugin
 
 This documentation also applies for the latest v1.0.8 of the plugin (for Grails 2.x), except for using the `I18nEnumTrait`.
 
-### License
+== License
 Licensed under the Apache2.0 license. See http://www.apache.org/licenses/LICENSE-2.0 for more information.

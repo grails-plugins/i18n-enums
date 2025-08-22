@@ -15,7 +15,7 @@ trait I18nEnumTrait implements MessageSourceResolvable {
 
     @Override
     String[] getCodes() {
-        Boolean shortName = getConfigProperty('shortName', Boolean, false)
+        Boolean shortName = this.getConfigProperty('shortName', Boolean, false)
         String className = shortName ? this.class.simpleName : this.class.name
 
         [name.toUpperCase(), name, name.toLowerCase()].collect {
@@ -30,7 +30,7 @@ trait I18nEnumTrait implements MessageSourceResolvable {
 
     @Override
     String getDefaultMessage() {
-        DefaultNameCase defaultNameCase = getConfigProperty('defaultNameCase', DefaultNameCase, null)
+        DefaultNameCase defaultNameCase = this.getConfigProperty('defaultNameCase', DefaultNameCase, null)
         switch (defaultNameCase) {
             case DefaultNameCase.UPPER_CASE:
                 return name.toUpperCase()
@@ -82,7 +82,7 @@ trait I18nEnumTrait implements MessageSourceResolvable {
      * @return
      */
     private static String getI18nEnumPrefix() {
-        String prefix = getConfigProperty('prefix', String, null)
+        String prefix = this.getConfigProperty('prefix', String, null)
         return prefix ? prefix + (prefix.endsWith('.') ? '' : '.') : ''
     }
 
@@ -91,7 +91,7 @@ trait I18nEnumTrait implements MessageSourceResolvable {
      * @return
      */
     private static String getI18nEnumPostfix() {
-        String postfix = getConfigProperty('postfix', String, null)
+        String postfix = this.getConfigProperty('postfix', String, null)
         return postfix ? (postfix.startsWith('.') ? '' : '.') + postfix : ''
     }
 }

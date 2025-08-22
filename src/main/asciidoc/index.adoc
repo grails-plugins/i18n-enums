@@ -1,0 +1,15 @@
+= I18n Enums
+:doctype: book
+:author: Søren Berg Glasius
+:email: soeren@glasius.dk
+:source-highlighter: coderay
+:numbered:
+:imagesdir: ./images
+
+include::introduction.adoc[leveloffset=2]
+
+include::installation.adoc[leveloffset=2]
+
+include::usage.adoc[leveloffset=2]
+
+include::changelog.adoc[leveloffset=2]

@@ -1,5 +1,15 @@
-### Changes
-#### v5.0.0
+= Change Log
+[[changes]]
+
+== Changes
+
+=== v7.0.0
+Ported to Grails 7.x
+
+=== v6.0.0
+Ported to Grails 6.x
+
+=== v5.0.0
 This plugin is now rewritten for Grails 5.x and is not backwards compatible.
 
 * Migrate group name from org.grails.plugins to dk.glasius
@@ -8,51 +18,51 @@ This plugin is now rewritten for Grails 5.x and is not backwards compatible.
 
 Migration to Grails 5 by James Daugherty. Thank you for your contribution.
 
-#### v2.0.2
+=== v2.0.2
 No functionality changes
 
 * More cleanup and automatic build on Travis-CI.
 * Migrated documentation to AsciiDoctor
 
-#### v2.0.1
+=== v2.0.1
 Code cleanup by Burt Beckwith. Thank you for your contribution.
 
-#### v2.0.0
+=== v2.0.0
 The plugin is now rewritten for Grails 3.x and is not backwards compatible.
 
 * Still supports annotations, where configuration can be done on every annotation or in config
 * Now also supports implementing the I18nEnumTrait on your own enumerations.
 * Documentation mentions what sections that only works for Grails 3.x
 
-#### v1.0.8
+=== v1.0.8
 Cleanup. No functionality changes.
 
-#### v1.0.7
+=== v1.0.7
 
 * Files to be pre-compiled moved from groovy-ast to groovy, that way Intellij Idea can find them when parsing the project for completions.
 * Test project (test/project/I18nEnumTest) now has more tests incl. GEB
 
-#### v1.0.5, v1.0.6
+=== v1.0.5, v1.0.6
 Updating plugin descriptor, documentation and build dependencies
 
-#### v1.0.4
+=== v1.0.4
 Documentation now on GitHub pages instead of grails.org
 
-#### v1.0.3
+=== v1.0.3
 Plugin now runs under Grails 2.4.x
 It is no longer a binary plugin. It should compile before all other classes.
 
-#### v1.0.2
+=== v1.0.2
 The plugin is now released as a binary plugin due to AST transformations not being applied to inlined plugins.
 
-#### v1.0.1
-Grails event hook to precompile AST transformations before the rest of the Grails compile phase. This is needed
-so that enums annotated will be compiled correctly.
+=== v1.0.1
+Grails event hook to precompile AST transformations before the rest of the Grails compile phase. This is needed so that enums annotated will be compiled correctly.
 
-#### v1.0.0
+=== v1.0.0
 The plugin was formerly known as *EnumMessageSourceResolvable*, but was renamed to I18nEnums for easier reading and writing. Functionality wise it has not changed from v1.0.0 of EnumMessageSourceResolvable.
 
 Now support configuration in Config.groovy - see documentation below
 
-#### Previous versions
+=== Previous versions
+
 For previous versions see [EnumMessageSourceResolvable|http://grails.org/plugin/enum-message-source-resolvable]

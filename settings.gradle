@@ -1,16 +1,36 @@
-pluginManagement {
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core/" }
-        gradlePluginPortal()
-    }
-    plugins {
-        id "org.grails.grails-plugin"
+plugins {
+    id 'com.gradle.develocity' version '4.0'
+    id 'com.gradle.common-custom-user-data-gradle-plugin' version '2.2.1'
+}
+
+def isCI = System.getenv().containsKey('CI')
+def isLocal = !isCI
+def isReproducibleBuild = System.getenv('SOURCE_DATE_EPOCH') != null
+if (isReproducibleBuild) {
+    gradle.settingsEvaluated {
+        logger.warn('*************** Remote Build Cache Disabled due to Reproducible Build ********************')
+        logger.warn("Build date will be set to (SOURCE_DATE_EPOCH=${System.getenv("SOURCE_DATE_EPOCH")})")
     }
 }
+
+develocity {
+    server = 'https://ge.grails.org'
+    buildScan {
+        tag('grails-plugins')
+        tag('grails-mail')
+        publishing.onlyIf { it.authenticated }
+        uploadInBackground = isLocal
+    }
+}
+
+buildCache {
+    local { enabled = (isLocal && !isReproducibleBuild) || (isCI && isReproducibleBuild) }
+    remote(develocity.buildCache) {
+        push = isCI
+        enabled = !isReproducibleBuild
+    }
+}
+
 rootProject.name = 'i18n-enums'
 
-include 'plugin'
-include 'docs'
 
-findProject(':plugin').name = 'i18n-enums'
