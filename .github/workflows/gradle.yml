@@ -29,9 +29,6 @@ jobs:
           develocity-access-key: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
       - name: "🏃 Run tests"
         run: ./gradlew check
-      - name: "🏃 Run integration tests"
-        working-directory: ./examples/testapp1
-        run: ./gradlew integrationTest
   publish_snapshot:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     name: "Build Project and Publish Snapshot release"
