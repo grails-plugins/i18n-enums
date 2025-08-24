@@ -29,20 +29,20 @@ tasks.withType(AsciidoctorTask).configureEach {
         doctype              : 'book',
         encoding             : 'utf-8',
         icons                : 'font',
-        id                   : "$rootProject.name:$projectVersion",
+        id                   : "$rootProject.name:$version",
         idprefix             : '',
         idseparator          : '-',
         lang                 : 'en',
         linkattrs            : true,
         numbered             : '',
         producer             : 'Asciidoctor',
-        revnumber            : projectVersion,
+        revnumber            : version,
         setanchors           : true,
         'source-highlighter' : 'prettify',
         toc                  : 'left',
         toc2                 : '',
         toclevels            : '2',
-        projectVersion       : projectVersion
+        projectVersion       : version
     ]
 }
 

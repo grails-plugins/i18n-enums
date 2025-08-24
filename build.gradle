@@ -2,13 +2,9 @@ import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
-plugins {
-    id "com.adarshr.test-logger" version "4.0.0"
-    id "maven-publish"
-    id 'org.asciidoctor.jvm.convert'
-    id 'org.apache.grails.gradle.grails-plugin'
-    id 'org.apache.grails.gradle.grails-publish'
-}
+apply plugin: 'groovy'
+apply plugin: 'org.apache.grails.gradle.grails-plugin'
+apply plugin: 'org.apache.grails.gradle.grails-publish'
 
 group "org.grails.plugins"
 
@@ -44,23 +40,7 @@ dependencies {
 java {
     withSourcesJar()
     withJavadocJar()
-    sourceCompatibility = JavaVersion.toVersion("17")
-}
-
-asciidoctor {
-    baseDir file('src/main/asciidoc')
-    sourceDir file('src/main/asciidoc')
-    outputDir project.layout.buildDirectory.file("docs")
-    options doctype: 'book'
-    attributes 'source-highlighter': 'coderay',
-            toc: 'left',
-            toclevels: '2',
-            'toc-title': 'Table of Contents',
-            icons: 'font',
-            id: project.name + ':' + project.version,
-            idprefix: '',
-            idseparator: '-',
-            version: version
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
 }
 
 tasks.withType(Test).configureEach {
@@ -68,9 +48,6 @@ tasks.withType(Test).configureEach {
     testLogging {
         events "failed"
         exceptionFormat "full"
-    }
-    testlogger {
-        theme 'mocha'
     }
 }
 groovydoc {
@@ -82,7 +59,6 @@ groovydoc {
     link('https://testing.grails.org/latest/api', 'grails.testing.', 'org.grails.testing.')
     link('http://gorm.grails.org/latest/hibernate/api/', 'grails.gorm', 'grails.orm', 'org.grails.datastore', 'org.grails.orm')
 }
-
 
 grailsPublish {
     githubSlug = 'grails-plugins/i18n-enums'
@@ -98,3 +74,7 @@ grailsPublish {
             bkoehm      : 'Brian Koehmstedt'
     ]
 }
+
+compileJava.options.release = javaVersion.toInteger()
+
+apply from: layout.projectDirectory.file('gradle/docs-config.gradle')
