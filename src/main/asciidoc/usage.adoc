@@ -1,4 +1,7 @@
-## Basic usage
+[[usage]]
+= Usage
+
+== Basic usage
 
 There are two ways to use the I18n Enum plugin:
 
@@ -48,7 +51,7 @@ simply the Enum value.
 
 If you use the Trait behaviour of the `MessageSourceResolvable` implementation can only be done from the config file (see the Configuration section below). If you use the annotation, it is possible to use fine grained configuration for each annotation (See the Advanced usage section below)
 
-## Advanced usage
+== Advanced usage
 
 To get even more control over, how the codes and the default value are generated, you can add parameters to the annotation:
 
@@ -60,13 +63,13 @@ To get even more control over, how the codes and the default value are generated
 The above are the default values.
 
 
-### Prefix and Postfix
+=== Prefix and Postfix
 
 Prefix controls what is added before the package name. If you do not add a dot after the prefix, one will be added for you.
 
 Postfix controls what is added after the `ENUM_VALUE`. If you do not add a dot before the postfix, one will be added for you.
 
-#### Example:
+==== Example:
 [source,groovy]
 ----
 package test
@@ -86,10 +89,10 @@ test.MyEnum.Two.codes ==   ['enum.test.MyEnum.TWO.label',   'enum.test.MyEnum.Tw
 test.MyEnum.three.codes == ['enum.test.MyEnum.THREE.label', 'enum.test.MyEnum.three.label', 'enum.test.MyEnum.three.label']
 ----
 
-### shortName
+=== shortName
 If you do not want the package name in the generated codes, just add shortName = true to your annotation parameters
 
-#### Example:
+==== Example:
 [source,groovy]
 ----
 package test
@@ -109,7 +112,7 @@ test.MyEnum.Two.codes ==   ['MyEnum.TWO',   'MyEnum.Two',   'MyEnum.two']
 test.MyEnum.three.codes == ['MyEnum.THREE', 'MyEnum.three', 'MyEnum.three']
 ----
 
-### defaultNameCase
+=== defaultNameCase
 To control the `defaultMessage` you can use `defaultNameCase`. It can be set to one of the following values:
 
 [source,groovy]
@@ -119,7 +122,7 @@ UPPER_CASE, LOWER_CASE, CAPITALIZE, ALL_CAPS, UNCHANGED
 
 where `UNCHANGED` is the default.
 
-#### Example:
+==== Example:
 `DefaultNameCase.CAPITALIZE`:
 [source,groovy]
 ----
@@ -185,7 +188,7 @@ test.MyEnum.Two.defaultMessage == 'two'
 test.MyEnum.three.defaultMessage == 'three'
 ----
 
-## Configuration
+== Configuration
 It is possible to configure default settings from configuration. This is the only way to control the code generation if you choose to use the I18nEnumTrait.
 
 In `application.groovy` create a configuration tree like this:

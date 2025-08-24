@@ -1,13 +1,21 @@
 package grails.plugins.i18nEnums.transformation
+
 import grails.plugins.i18nEnums.DefaultNameCase
 import grails.plugins.i18nEnums.traits.I18nEnumTrait
 import groovy.transform.CompilationUnitAware
 import groovy.transform.CompileStatic
-import org.codehaus.groovy.ast.*
+import org.codehaus.groovy.ast.ASTNode
+import org.codehaus.groovy.ast.AnnotatedNode
+import org.codehaus.groovy.ast.AnnotationNode
+import org.codehaus.groovy.ast.ClassHelper
+import org.codehaus.groovy.ast.ClassNode
+import org.codehaus.groovy.ast.MethodNode
+import org.codehaus.groovy.ast.Parameter
 import org.codehaus.groovy.ast.expr.ConstantExpression
 import org.codehaus.groovy.ast.expr.Expression
 import org.codehaus.groovy.ast.expr.MapEntryExpression
 import org.codehaus.groovy.ast.expr.MapExpression
+import org.codehaus.groovy.ast.expr.PropertyExpression
 import org.codehaus.groovy.ast.stmt.BlockStatement
 import org.codehaus.groovy.ast.stmt.ReturnStatement
 import org.codehaus.groovy.control.CompilationUnit
@@ -15,8 +23,9 @@ import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
+import org.codehaus.groovy.transform.trait.TraitComposer
 
-@GroovyASTTransformation(phase= CompilePhase.CANONICALIZATION)
+@GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
 @CompileStatic
 class I18nEnumTransformation implements ASTTransformation, CompilationUnitAware {
 
@@ -40,9 +49,9 @@ class I18nEnumTransformation implements ASTTransformation, CompilationUnitAware 
         }
     }
 
-    private void addi18nEnumASTConfig(ClassNode classNode, AnnotationNode annotationNode) {
+    private static void addi18nEnumASTConfig(ClassNode classNode, AnnotationNode annotationNode) {
         Map annotationConfig = extractAnnotationConfig(annotationNode)
-        if(annotationConfig) {
+        if (annotationConfig) {
             // Replace the method body of getI18nEnumASTConfig so that it returns
             // the config created by the annotation
             MethodNode existingMethodNode = classNode.getMethod('getI18nEnumASTConfig', [] as Parameter[])
@@ -63,7 +72,7 @@ class I18nEnumTransformation implements ASTTransformation, CompilationUnitAware 
     private void addTrait(ClassNode classNode, SourceUnit source) {
         def clazz = ClassHelper.make(I18nEnumTrait)
         classNode.addInterface(clazz)
-        org.codehaus.groovy.transform.trait.TraitComposer.doExtendTraits(classNode, source, compilationUnit)
+        TraitComposer.doExtendTraits(classNode, source, compilationUnit)
     }
 
     /**
@@ -105,9 +114,19 @@ class I18nEnumTransformation implements ASTTransformation, CompilationUnitAware 
         if (shortName) {
             config.shortName = shortName
         }
-        if (defaultNameCase && defaultNameCase != DefaultNameCase.UNCHANGED) {
+        if (defaultNameCase && resolveDefaultNameCase(defaultNameCase) != DefaultNameCase.UNCHANGED) {
             config.defaultNameCase = defaultNameCase
         }
         return config
+    }
+
+    private static DefaultNameCase resolveDefaultNameCase(Expression expression) {
+        if (expression instanceof PropertyExpression) {
+            PropertyExpression pe = expression as PropertyExpression
+            String enumConstant = pe.propertyAsString          // "UNCHANGED"
+
+            // Then load the enum value if needed
+            return DefaultNameCase.valueOf(enumConstant)
+        }
     }
 }
