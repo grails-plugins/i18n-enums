@@ -11,8 +11,8 @@ tasks.withType(Groovydoc).configureEach {
 }
 
 tasks.withType(AsciidoctorTask).configureEach {
-    baseDir = layout.projectDirectory.dir('src/docs')
-    sourceDir = layout.projectDirectory.dir('src/docs')
+    baseDir = layout.projectDirectory.dir('src/main/asciidoc')
+    sourceDir = layout.projectDirectory.dir('src/main/asciidoc')
     outputDir = layout.buildDirectory.dir('docs/manual')
     sources {
         include 'index.adoc'
