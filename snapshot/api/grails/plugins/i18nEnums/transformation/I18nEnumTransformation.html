@@ -99,18 +99,18 @@ if (location.href.indexOf('is-external=true') == -1) {
 
             <dl>
                 <dt>All Implemented Interfaces and Traits:</dt>
-                <dd><a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform/ASTTransformation.html' title='ASTTransformation'>ASTTransformation</a>, <a href='http://groovy.codehaus.org/api/groovy/transform/CompilationUnitAware.html' title='CompilationUnitAware'>CompilationUnitAware</a></dd>
+                <dd>org.codehaus.groovy.transform.ASTTransformation, groovy.transform.CompilationUnitAware</dd>
             </dl>
     
 
             <!-- todo: direct known subclasses -->
             <hr>
 
-<pre>@<a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform/GroovyASTTransformation.html' title='GroovyASTTransformation'>GroovyASTTransformation</a>(phase: CompilePhase.CANONICALIZATION)
-@<a href='http://groovy.codehaus.org/api/groovy/transform/CompileStatic.html' title='CompileStatic'>CompileStatic</a>
+<pre>@org.codehaus.groovy.transform.GroovyASTTransformation(phase: CompilePhase.CANONICALIZATION)
+@groovy.transform.CompileStatic
 class I18nEnumTransformation
-extends <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html' title='Object'>Object</a>
-implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform/ASTTransformation.html' title='ASTTransformation'>ASTTransformation</a>, <a href='http://groovy.codehaus.org/api/groovy/transform/CompilationUnitAware.html' title='CompilationUnitAware'>CompilationUnitAware</a></pre>
+extends java.lang.Object
+implements org.codehaus.groovy.transform.ASTTransformation, groovy.transform.CompilationUnitAware</pre>
 
           </li>
     </ul>
@@ -139,7 +139,7 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         </tr>
                         
                         <tr class="altColor">
-                            <td class="colFirst"><code><strong>static&nbsp;<a href='http://download.oracle.com/javase/8/docs/api/java/lang/String.html' title='String'>String</a></strong></code>&nbsp;</td>
+                            <td class="colFirst"><code><strong>static&nbsp;java.lang.String</strong></code>&nbsp;</td>
                             <td class="colLast"><code><a href="#$I18N_ENUM_ASTCONFIG">$I18N_ENUM_ASTCONFIG</a></code></td>
                             <td class="colLast"></td>
                         </tr>
@@ -165,7 +165,7 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         </tr>
                         
                         <tr class="altColor">
-                            <td class="colFirst"><code><strong><a href='http://groovy.codehaus.org/api/org/codehaus/groovy/control/CompilationUnit.html' title='CompilationUnit'>CompilationUnit</a></strong></code>&nbsp;</td>
+                            <td class="colFirst"><code><strong>org.codehaus.groovy.control.CompilationUnit</strong></code>&nbsp;</td>
                             <td class="colLast"><code><a href="#compilationUnit">compilationUnit</a></code><br></td>
                         </tr>
                         
@@ -220,7 +220,7 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         <tr class="altColor">
                             <td class="colFirst"><code></code></td>
                             <td class="colLast"><code>void</code></td>
-                            <td class="colLast"><code><strong><a href="#visit(org.codehaus.groovy.ast.ASTNode, org.codehaus.groovy.control.SourceUnit)">visit</a></strong>(<a href='http://groovy.codehaus.org/api/org/codehaus/groovy/ast/ASTNode.html' title='ASTNode'>ASTNode</a>[] nodes, <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/control/SourceUnit.html' title='SourceUnit'>SourceUnit</a> source)</code><br></td>
+                            <td class="colLast"><code><strong><a href="#visit(org.codehaus.groovy.ast.ASTNode, org.codehaus.groovy.control.SourceUnit)">visit</a></strong>(org.codehaus.groovy.ast.ASTNode[] nodes, org.codehaus.groovy.control.SourceUnit source)</code><br></td>
                         </tr>
                         
                     </table>
@@ -238,8 +238,8 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         </tr>
                         
                         <tr class="altColor">
-                            <td class="colFirst"><code>class <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html' title='Object'>Object</a></code></td>
-                            <td class="colLast"><code><a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#equals(java.lang.Object)' title='equals'>equals</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#getClass()' title='getClass'>getClass</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode()' title='hashCode'>hashCode</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#notify()' title='notify'>notify</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#notifyAll()' title='notifyAll'>notifyAll</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#toString()' title='toString'>toString</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#wait()' title='wait'>wait</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#wait(long)' title='wait'>wait</a>, <a href='http://download.oracle.com/javase/8/docs/api/java/lang/Object.html#wait(long, int)' title='wait'>wait</a></code></td>
+                            <td class="colFirst"><code>class java.lang.Object</code></td>
+                            <td class="colLast"><code>java.lang.Object#equals(java.lang.Object), java.lang.Object#getClass(), java.lang.Object#hashCode(), java.lang.Object#notify(), java.lang.Object#notifyAll(), java.lang.Object#toString(), java.lang.Object#wait(), java.lang.Object#wait(long), java.lang.Object#wait(long, int)</code></td>
                         </tr>
                     </table>
                    </ul>
@@ -267,7 +267,7 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         <a name="$I18N_ENUM_ASTCONFIG"><!-- --></a>
                         <ul class="blockListLast">
                             <li class="blockList">
-                                <h4>public&nbsp;static&nbsp;final&nbsp;<a href='http://download.oracle.com/javase/8/docs/api/java/lang/String.html' title='String'>String</a> <strong>$I18N_ENUM_ASTCONFIG</strong></h4>
+                                <h4>public&nbsp;static&nbsp;final&nbsp;java.lang.String <strong>$I18N_ENUM_ASTCONFIG</strong></h4>
                                 <p></p>
                             </li>
                         </ul>
@@ -287,7 +287,7 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         <a name="compilationUnit"><!-- --></a>
                         <ul class="blockListLast">
                             <li class="blockList">
-                                <h4><a href='http://groovy.codehaus.org/api/org/codehaus/groovy/control/CompilationUnit.html' title='CompilationUnit'>CompilationUnit</a> <strong>compilationUnit</strong></h4>
+                                <h4>org.codehaus.groovy.control.CompilationUnit <strong>compilationUnit</strong></h4>
                                 <p></p>
                             </li>
                         </ul>
@@ -330,7 +330,7 @@ implements <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/transform
                         <a name="visit(org.codehaus.groovy.ast.ASTNode, org.codehaus.groovy.control.SourceUnit)"><!-- --></a>
                         <ul class="blockListLast">
                             <li class="blockList">
-                                <h4>@<a href='http://download.oracle.com/javase/8/docs/api/java/lang/Override.html' title='Override'>Override</a><br>void <strong>visit</strong>(<a href='http://groovy.codehaus.org/api/org/codehaus/groovy/ast/ASTNode.html' title='ASTNode'>ASTNode</a>[] nodes, <a href='http://groovy.codehaus.org/api/org/codehaus/groovy/control/SourceUnit.html' title='SourceUnit'>SourceUnit</a> source)</h4>
+                                <h4>@java.lang.Override<br>void <strong>visit</strong>(org.codehaus.groovy.ast.ASTNode[] nodes, org.codehaus.groovy.control.SourceUnit source)</h4>
                                 <p></p>
                             </li>
                         </ul>
