@@ -10,7 +10,7 @@ In your `build.gradle` insert into your `dependencies`:
 The plugin was moved to https://github.com/grails-plugins/i18n-enums
 ====
 
-[source,groovy,subs="attributes"]
+[source,groovy,subs=attributes+]
 ----
 implementation 'org.grails.plugins:i18n-enums:{version}'
 ----
