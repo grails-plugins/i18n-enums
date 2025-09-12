@@ -6,6 +6,7 @@ apply plugin: 'groovy'
 apply plugin: 'org.apache.grails.gradle.grails-plugin'
 apply plugin: 'org.apache.grails.gradle.grails-publish'
 
+version = projectVersion
 group = 'org.grails.plugins'
 
 repositories {
@@ -30,24 +31,18 @@ ext {
 }
 
 dependencies {
-    compileOnly 'org.springframework.boot:spring-boot-starter-logging'
-    compileOnly 'org.springframework.boot:spring-boot-starter-validation'
-    compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
-    compileOnly 'org.apache.grails:grails-core'
-    testImplementation 'org.apache.grails:grails-testing-support-web'
-}
+    compileOnly platform("org.apache.grails:grails-bom:$grailsVersion")
+    compileOnly 'org.apache.grails:grails-dependencies-starter-web'
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    testImplementation platform("org.apache.grails:grails-bom:$grailsVersion")
+    testImplementation 'org.apache.grails:grails-dependencies-starter-web'
+    testImplementation 'org.apache.grails:grails-testing-support-web'
 }
 
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
     testLogging {
-        events 'failed'
-        exceptionFormat 'full'
+        events 'passed', 'skipped', 'failed'
     }
 }
 groovydoc {
