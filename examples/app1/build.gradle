@@ -30,7 +30,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     runtimeOnly 'cloud.wondrify:asset-pipeline-grails'
-    runtimeOnly 'org.fusesource.jansi:jansi'
+
+    // Grails 8's Gradle plugin auto-applies the Grails BOM to every declarable
+    // configuration, including the ones JaCoCo creates. That makes them non-empty, so
+    // JaCoCo's own defaultDependencies never fire and the agent/ant jars go missing
+    // ("Expected configuration ':app1:jacocoAgent' to contain exactly one file").
+    // Declaring them explicitly restores what JaCoCo would have contributed itself.
+    jacocoAgent "org.jacoco:org.jacoco.agent:$jacocoVersion"
+    jacocoAnt "org.jacoco:org.jacoco.ant:$jacocoVersion"
 
     integrationTestImplementation testFixtures('org.apache.grails:grails-geb')
 

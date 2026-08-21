@@ -1,9 +1,12 @@
 package grails.plugins.i18nEnums.traits
 
 import grails.plugins.i18nEnums.DefaultNameCase
+import grails.plugins.i18nEnums.transformation.I18nEnumTransformation
 import grails.util.Holders
 import groovy.transform.SelfType
 import org.springframework.context.MessageSourceResolvable
+
+import java.lang.reflect.Field
 
 @SelfType(Enum)
 trait I18nEnumTrait implements MessageSourceResolvable {
@@ -16,11 +19,11 @@ trait I18nEnumTrait implements MessageSourceResolvable {
 
     @Override
     String[] getCodes() {
-        Boolean shortName = this.getConfigProperty('shortName', Boolean, false)
+        Boolean shortName = getConfigProperty('shortName', Boolean, false)
         String className = shortName ? this.class.simpleName : this.class.name
 
         [name.toUpperCase(), name, name.toLowerCase()].collect {
-            "${i18nEnumPrefix}${className}.${it}${i18nEnumPostfix}".toString()
+            "${getI18nEnumPrefix()}${className}.${it}${getI18nEnumPostfix()}".toString()
         } as String[]
     }
 
@@ -31,7 +34,7 @@ trait I18nEnumTrait implements MessageSourceResolvable {
 
     @Override
     String getDefaultMessage() {
-        DefaultNameCase defaultNameCase = this.getConfigProperty('defaultNameCase', DefaultNameCase, null)
+        DefaultNameCase defaultNameCase = getConfigProperty('defaultNameCase', DefaultNameCase, null)
         switch (defaultNameCase) {
             case DefaultNameCase.UPPER_CASE:
                 return name.toUpperCase()
@@ -55,23 +58,28 @@ trait I18nEnumTrait implements MessageSourceResolvable {
     }
 
     /**
-     * This method returns an empty map. The method body can be replaced
-     * by the I18nEnumTransformation if the @I18nEnum provides arguments
-     * @return and empty config unless replaced by the AST transformation.
+     * The config baked into the enum by I18nEnumTransformation when @I18nEnum carries members,
+     * or an empty map for a bare @I18nEnum or a plain I18nEnumTrait implementation.
+     *
+     * Read reflectively from the static field the transformation adds, rather than through an
+     * overridable trait method: a method declared here would shadow the enum's own on every
+     * call made from inside the trait, which is exactly where it is needed.
      */
-    private static Map getI18nEnumASTConfig() {
-        [:]
+    private Map getI18nEnumASTConfig() {
+        Field field = this.class.declaredFields.find { it.name == I18nEnumTransformation.AST_CONFIG_FIELD }
+        field ? field.get(null) as Map : [:]
     }
 
     /**
-     * Given a property name, lookup the that property under the i18nEnumConfig
+     * Given a property name, look that property up under the i18nEnum config.
      * If the I18nEnumTrait is used from an annotation, the annotation config overrules
      * the Grails config settings.
-     * @return a config map (Empty if no config)
+     * @return a config (empty if no config)
      */
-    private static <T> T getConfigProperty(String propertyName, Class<T> type, T defaultValue) {
-        if (i18nEnumASTConfig.containsKey(propertyName)) {
-            T foundValue = i18nEnumASTConfig[propertyName] as T
+    private <T> T getConfigProperty(String propertyName, Class<T> type, T defaultValue) {
+        Map astConfig = getI18nEnumASTConfig()
+        if (astConfig.containsKey(propertyName)) {
+            T foundValue = astConfig[propertyName] as T
             return foundValue == null ? defaultValue : foundValue
         }
 
@@ -82,17 +90,17 @@ trait I18nEnumTrait implements MessageSourceResolvable {
      * Normalizes the prefix
      * @return
      */
-    private static String getI18nEnumPrefix() {
-        String prefix = this.getConfigProperty('prefix', String, null)
-        return prefix ? prefix + (prefix.endsWith('.') ? '' : '.') : ''
+    private String getI18nEnumPrefix() {
+        String prefix = getConfigProperty('prefix', String, null)
+        prefix ? prefix + (prefix.endsWith('.') ? '' : '.') : ''
     }
 
     /**
      * Normalizes the postfix
      * @return
      */
-    private static String getI18nEnumPostfix() {
-        String postfix = this.getConfigProperty('postfix', String, null)
-        return postfix ? (postfix.startsWith('.') ? '' : '.') + postfix : ''
+    private String getI18nEnumPostfix() {
+        String postfix = getConfigProperty('postfix', String, null)
+        postfix ? (postfix.startsWith('.') ? '' : '.') + postfix : ''
     }
 }

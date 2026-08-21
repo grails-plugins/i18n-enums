@@ -15,8 +15,15 @@ tasks.register('cleanDocs', Delete) {
     delete(rootProject.layout.projectDirectory.dir('build/docs'))
 }
 
-tasks.register('aggregateGroovyApiDoc', Groovydoc) {
-    description = 'Generates Groovy API Documentation for the plugin project under build/docs/gapi'
+// LOCAL DIVERGENCE (see config.docs.gradle.lock): the template re-runs Groovydoc here,
+// wiring in the plugin project's source and classpath. Under Gradle 9 that fails with
+// "Resolution of the configuration ':<plugin>:detachedConfigurationN' was attempted without
+// an exclusive lock", because a task in the root project may no longer resolve a
+// configuration owned by another project. Since the plugin project already produces exactly
+// this Groovydoc, copy its output instead of recomputing it - no cross-project resolution,
+// same result. Groovydoc options (access level, excludes) now live in plugin/build.gradle.
+tasks.register('aggregateGroovyApiDoc', Copy) {
+    description = 'Collects the Groovy API Documentation for the plugin project under build/docs/gapi'
     group = 'documentation'
 
     def upstream = pluginProject.flatMap {
@@ -26,17 +33,8 @@ tasks.register('aggregateGroovyApiDoc', Groovydoc) {
     dependsOn(tasks.named('cleanDocs'))
     dependsOn(upstream)
 
-    access = GroovydocAccess.PROTECTED
-    includeAuthor = false
-    includeMainForScripts = true
-    processScripts = true
-    exclude('**/Application.groovy')
-
-
-    source = { upstream.get().source }
-    destinationDir = rootProject.layout.buildDirectory.dir('docs/gapi').get().asFile
-    classpath = files({ upstream.get().classpath })
-    groovyClasspath = files({ upstream.get().groovyClasspath })
+    from(upstream.map { it.destinationDir })
+    into(rootProject.layout.buildDirectory.dir('docs/gapi'))
 }
 
 tasks.register('docs') {

@@ -9,15 +9,11 @@ import org.codehaus.groovy.ast.AnnotatedNode
 import org.codehaus.groovy.ast.AnnotationNode
 import org.codehaus.groovy.ast.ClassHelper
 import org.codehaus.groovy.ast.ClassNode
-import org.codehaus.groovy.ast.MethodNode
-import org.codehaus.groovy.ast.Parameter
 import org.codehaus.groovy.ast.expr.ConstantExpression
 import org.codehaus.groovy.ast.expr.Expression
 import org.codehaus.groovy.ast.expr.MapEntryExpression
 import org.codehaus.groovy.ast.expr.MapExpression
 import org.codehaus.groovy.ast.expr.PropertyExpression
-import org.codehaus.groovy.ast.stmt.BlockStatement
-import org.codehaus.groovy.ast.stmt.ReturnStatement
 import org.codehaus.groovy.control.CompilationUnit
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
@@ -25,11 +21,21 @@ import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 import org.codehaus.groovy.transform.trait.TraitComposer
 
+import java.lang.reflect.Modifier
+
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
 @CompileStatic
 class I18nEnumTransformation implements ASTTransformation, CompilationUnitAware {
 
-    public static final String $I18N_ENUM_ASTCONFIG = 'i18nEnumASTConfig'
+    /**
+     * Name of the static field this transformation adds to an annotated enum to carry the
+     * annotation's members. I18nEnumTrait reads it reflectively at runtime.
+     *
+     * A field rather than a method on purpose: the trait cannot declare a member of the same
+     * name (it would shadow the enum's own on any call made from inside the trait), and unlike
+     * trait method composition, a plain static field is not subject to Groovy version changes.
+     */
+    public static final String AST_CONFIG_FIELD = '$i18nEnumASTConfig'
 
     CompilationUnit compilationUnit
 
@@ -50,18 +56,17 @@ class I18nEnumTransformation implements ASTTransformation, CompilationUnitAware 
     }
 
     private static void addi18nEnumASTConfig(ClassNode classNode, AnnotationNode annotationNode) {
-        Map annotationConfig = extractAnnotationConfig(annotationNode)
-        if (annotationConfig) {
-            // Replace the method body of getI18nEnumASTConfig so that it returns
-            // the config created by the annotation
-            MethodNode existingMethodNode = classNode.getMethod('getI18nEnumASTConfig', [] as Parameter[])
-
-            MapExpression mapExpression = buildMapExpression(annotationConfig)
-            ReturnStatement returnStatement = new ReturnStatement(mapExpression)
-            BlockStatement methodBody = new BlockStatement()
-            methodBody.addStatement(returnStatement)
-            existingMethodNode.setCode(methodBody)
+        Map<String, Expression> annotationConfig = extractAnnotationConfig(annotationNode)
+        if (!annotationConfig || classNode.getDeclaredField(AST_CONFIG_FIELD)) {
+            return
         }
+
+        classNode.addField(
+                AST_CONFIG_FIELD,
+                Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL,
+                ClassHelper.MAP_TYPE.plainNodeReference,
+                buildMapExpression(annotationConfig)
+        )
     }
 
     /**

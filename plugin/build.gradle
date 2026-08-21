@@ -23,6 +23,12 @@ dependencies {
     testImplementation 'org.apache.grails:grails-dependencies-test'
 }
 
+// This is the Groovydoc the root project's aggregateGroovyApiDoc publishes as build/docs/gapi,
+// so the API doc options belong here rather than on the aggregating task.
 tasks.named('groovydoc', Groovydoc) {
+    access = GroovydocAccess.PROTECTED
+    includeAuthor = false
+    includeMainForScripts = true
+    processScripts = true
     excludes = ['**/*GrailsPlugin.groovy']
 }

@@ -4,7 +4,7 @@ import grails.plugins.Plugin
 
 class I18nEnumsGrailsPlugin extends Plugin {
 
-    def grailsVersion = '7.0.0 > *'
+    def grailsVersion = '8.0.0 > *'
 
     def title = 'I18n Enums Plugin'
     def description = 'Adds an annotation usable on Enums to easily add and implement the MessageSourceResolvable interface'
