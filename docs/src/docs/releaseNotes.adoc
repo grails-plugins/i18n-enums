@@ -1,6 +1,15 @@
 [[releaseNotes]]
 == Release Notes
 
+=== v8.0.0
+Ported to Grails 8.x. Requires Java 21 or later.
+
+Groovy 5's `TraitComposer` no longer copies a trait's private methods onto the implementing
+class. `I18nEnumTrait` therefore no longer carries the annotation config in an overridable
+method; `@I18nEnum` now bakes it into a static field on the enum, which the trait reads at
+runtime. Behaviour is unchanged - the codes, default messages and configuration precedence
+are exactly as before.
+
 === v7.0.1
 Built against the Grails 7.0.0 release, with dependency updates.
 

@@ -6,11 +6,11 @@ The **I18n Enums** Grails plugin makes enums translatable. An enum annotated wit
 implementing `I18nEnumTrait`) implements Spring's `MessageSourceResolvable`, so its constants can be
 resolved directly by Grails' `messageSource` or `<g:message>`.
 
-- **Language:** Groovy 4.0.30 on Java 17
-- **Framework:** Grails 7.x
-- **Build System:** Gradle 8.14.4 (with wrapper)
+- **Language:** Groovy 5.0.8 on Java 21
+- **Framework:** Grails 8.x
+- **Build System:** Gradle 9.6.0 (with wrapper)
 - **Published artifact:** `org.grails.plugins:i18n-enums`
-- **Current Version:** 7.0.2-SNAPSHOT
+- **Current Version:** 8.0.0-SNAPSHOT
 - **License:** Apache 2.0
 
 This repository is built on
@@ -18,6 +18,11 @@ This repository is built on
 `gradle/`, `.github/workflows/`, `.github/scripts/`, `.agents/`, `CONTRIBUTING.md` and `LICENSE.txt`
 are delivered by its automated file sync — **do not edit them here**; changes belong upstream in the
 template. Everything else in this repository is project-owned.
+
+The template targets Grails 7 / Java 17, so this branch pins `.sdkmanrc` to the Grails 8 toolchain
+via a `.sdkmanrc.lock` file, which excludes it from the sync. The Gradle wrapper under `gradle/` is
+**not** lock-aware in the template's sync script, so a sync run would downgrade it to the template's
+Gradle — see the notes in the migration PR.
 
 ## Skill Files (Best Practices)
 
@@ -101,9 +106,9 @@ i18n-enums/
 
 Use SDKMAN to install the correct tool versions (see `.sdkmanrc`):
 
-- Java: `17.0.18-librca`
-- Gradle: `8.14.4`
-- Groovy: `4.0.30`
+- Java: `21.0.12-librca`
+- Gradle: `9.6.0`
+- Groovy: `5.0.8`
 
 Run `sdk env install` to set up the environment.
 
@@ -113,13 +118,19 @@ Two entry points, one implementation:
 
 1. **`@I18nEnum`** — a `SOURCE`-retention annotation handled by `I18nEnumTransformation` at the
    `CANONICALIZATION` compile phase. The transformation adds `I18nEnumTrait` to the enum via
-   `TraitComposer`, then, if the annotation carries any members, rewrites the body of the trait's
-   `getI18nEnumASTConfig()` to return them as a map literal.
+   `TraitComposer`, then, if the annotation carries any members, adds them to the enum as a static
+   map field.
 2. **`I18nEnumTrait`** — implemented directly on an enum when no annotation-level configuration is
    needed. It supplies `getCodes()`, `getArguments()` and `getDefaultMessage()`.
 
 Configuration resolution order, per property: the AST config baked in by the annotation wins;
 otherwise `grails.plugin.i18nEnum.<property>` is read from the Grails config via `Holders.config`.
+
+The annotation config travels as a static field (`$i18nEnumASTConfig`, named by
+`I18nEnumTransformation.AST_CONFIG_FIELD`) that the transformation adds to the enum, and which
+the trait reads reflectively. A field, not a method: since Groovy 5 the `TraitComposer` no
+longer copies a trait's private methods onto the implementing class, and any method the trait
+declared itself would shadow the enum's own on exactly the calls that need it.
 
 ### Core Classes
 

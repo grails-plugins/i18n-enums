@@ -19,9 +19,11 @@ Add the following dependency to your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'org.grails.plugins:i18n-enums:7.0.1'
+    implementation 'org.grails.plugins:i18n-enums:8.0.0-SNAPSHOT'
 }
 ```
+
+Requires Grails 8 (Java 21 or later, Groovy 5). For Grails 7.x use the `7.0.x` line.
 
 ## Usage
 

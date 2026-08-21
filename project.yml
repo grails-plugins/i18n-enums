@@ -25,3 +25,4 @@ versions:
   - "2.0.2"
   ignore:
   - "snapshot"
+  - "7.0.x"
