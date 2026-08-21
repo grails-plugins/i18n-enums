@@ -7,6 +7,7 @@ import org.springframework.context.MessageSourceResolvable
 
 @SelfType(Enum)
 trait I18nEnumTrait implements MessageSourceResolvable {
+
     /**
      * The name() method on enums
      * @return
@@ -69,7 +70,7 @@ trait I18nEnumTrait implements MessageSourceResolvable {
      * @return a config map (Empty if no config)
      */
     private static <T> T getConfigProperty(String propertyName, Class<T> type, T defaultValue) {
-        if(i18nEnumASTConfig.containsKey(propertyName)) {
+        if (i18nEnumASTConfig.containsKey(propertyName)) {
             T foundValue = i18nEnumASTConfig[propertyName] as T
             return foundValue == null ? defaultValue : foundValue
         }

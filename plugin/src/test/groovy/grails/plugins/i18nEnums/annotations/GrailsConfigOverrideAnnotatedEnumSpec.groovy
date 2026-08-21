@@ -7,21 +7,22 @@ import org.grails.config.PropertySourcesConfig
 class GrailsConfigOverrideAnnotatedEnumSpec extends AnnotationSpecification {
 
     def source = """
-				package test
-				import grails.plugins.i18nEnums.annotations.I18nEnum
+                package test
+                import grails.plugins.i18nEnums.annotations.I18nEnum
                 import grails.plugins.i18nEnums.DefaultNameCase
 
-				@I18nEnum(prefix = 'overridepre', postfix = 'overridepost', shortName = false, defaultNameCase = DefaultNameCase.UPPER_CASE)
-				enum DefaultAnnotatedEnum {
-					ONE,
-					Two,
-					three
-				}
-			"""
+                @I18nEnum(prefix = 'overridepre', postfix = 'overridepost', shortName = false, defaultNameCase = DefaultNameCase.UPPER_CASE)
+                enum DefaultAnnotatedEnum {
+
+                    ONE,
+                    Two,
+                    three
+                }
+            """
 
     def setup() {
-        Holders.config = new PropertySourcesConfig([ grails: [plugin: [i18nEnum: [
-                prefix:'pre',
+        Holders.config = new PropertySourcesConfig([grails: [plugin: [i18nEnum: [
+                prefix: 'pre',
                 postfix: 'post',
                 defaultNameCase: DefaultNameCase.LOWER_CASE,
                 shortName: true
@@ -32,7 +33,7 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends AnnotationSpecification {
         Holders.config = null
     }
 
-    def "test that the annotated enum default message returns correct values"() {
+    def 'test that the annotated enum default message returns correct values'() {
         when:
         def clazz = add_class_to_classpath(source)
 
@@ -42,7 +43,7 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends AnnotationSpecification {
         clazz.three.defaultMessage == 'THREE'
     }
 
-    def "test that the annotated enum arguments returns correct values"() {
+    def 'test that the annotated enum arguments returns correct values'() {
         when:
         def clazz = add_class_to_classpath(source)
 
@@ -52,7 +53,7 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends AnnotationSpecification {
         clazz.three.arguments == []
     }
 
-    def "test that the annotated enum codes returns correct values"() {
+    def 'test that the annotated enum codes returns correct values'() {
         when:
         def clazz = add_class_to_classpath(source)
 

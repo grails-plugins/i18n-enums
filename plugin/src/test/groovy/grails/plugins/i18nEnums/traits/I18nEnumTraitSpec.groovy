@@ -7,39 +7,40 @@ import org.springframework.context.MessageSourceResolvable
 import spock.lang.Specification
 
 class I18nEnumTraitSpec extends Specification {
+
     def cleanup() {
         Holders.config = null
     }
 
-    def "test that the enum implementing I18nEnumTrait is instance of MessageSourceResolvable"() {
+    def 'test that the enum implementing I18nEnumTrait is instance of MessageSourceResolvable'() {
         expect:
         EnumImplementsTrait.ONE instanceof MessageSourceResolvable
     }
 
-    def "test that the enum implementing I18nEnumTrait returns correct default message"() {
+    def 'test that the enum implementing I18nEnumTrait returns correct default message'() {
         expect:
         EnumImplementsTrait.ONE.defaultMessage == 'ONE'
         EnumImplementsTrait.Two.defaultMessage == 'Two'
         EnumImplementsTrait.three.defaultMessage == 'three'
     }
 
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    def "test that the enum implementing I18nEnumTrait returns correct arguments"() {
+    @SuppressWarnings('GroovyAssignabilityCheck')
+    def 'test that the enum implementing I18nEnumTrait returns correct arguments'() {
         expect:
         EnumImplementsTrait.ONE.arguments == [] as Object[]
         EnumImplementsTrait.Two.arguments == [] as Object[]
         EnumImplementsTrait.three.arguments == [] as Object[]
     }
 
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    def "test that the enum implementing I18nEnumTrait returns correct codes"() {
+    @SuppressWarnings('GroovyAssignabilityCheck')
+    def 'test that the enum implementing I18nEnumTrait returns correct codes'() {
         expect:
         EnumImplementsTrait.ONE.codes == ['grails.plugins.i18nEnums.traits.EnumImplementsTrait.ONE', 'grails.plugins.i18nEnums.traits.EnumImplementsTrait.ONE', 'grails.plugins.i18nEnums.traits.EnumImplementsTrait.one'] as String[]
         EnumImplementsTrait.Two.codes == ['grails.plugins.i18nEnums.traits.EnumImplementsTrait.TWO', 'grails.plugins.i18nEnums.traits.EnumImplementsTrait.Two', 'grails.plugins.i18nEnums.traits.EnumImplementsTrait.two'] as String[]
         EnumImplementsTrait.three.codes == ['grails.plugins.i18nEnums.traits.EnumImplementsTrait.THREE', 'grails.plugins.i18nEnums.traits.EnumImplementsTrait.three', 'grails.plugins.i18nEnums.traits.EnumImplementsTrait.three'] as String[]
     }
 
-    def "test that the enum implementing I18EnumTrait returns correct default message when setting config"() {
+    def 'test that the enum implementing I18EnumTrait returns correct default message when setting config'() {
         given:
         setConfig(defaultNameCase: DefaultNameCase.UPPER_CASE)
 
@@ -49,8 +50,8 @@ class I18nEnumTraitSpec extends Specification {
         EnumImplementsTrait.three.defaultMessage == 'THREE'
     }
 
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    def "test that the enum implementing I18nEnumTrait returns correct codes with config: shortName"() {
+    @SuppressWarnings('GroovyAssignabilityCheck')
+    def 'test that the enum implementing I18nEnumTrait returns correct codes with config: shortName'() {
         given:
         setConfig(shortName: true)
 
@@ -60,8 +61,8 @@ class I18nEnumTraitSpec extends Specification {
         EnumImplementsTrait.three.codes == ['EnumImplementsTrait.THREE', 'EnumImplementsTrait.three', 'EnumImplementsTrait.three'] as String[]
     }
 
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    def "test that the enum implementing I18nEnumTrait returns correct codes with config: prefix and  postfix"() {
+    @SuppressWarnings('GroovyAssignabilityCheck')
+    def 'test that the enum implementing I18nEnumTrait returns correct codes with config: prefix and  postfix'() {
         given:
         setConfig(prefix: 'pre', postfix: '.post')
 
@@ -71,8 +72,8 @@ class I18nEnumTraitSpec extends Specification {
         EnumImplementsTrait.three.codes == ['pre.grails.plugins.i18nEnums.traits.EnumImplementsTrait.THREE.post', 'pre.grails.plugins.i18nEnums.traits.EnumImplementsTrait.three.post', 'pre.grails.plugins.i18nEnums.traits.EnumImplementsTrait.three.post'] as String[]
     }
 
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    def "test that the enum implementing I18nEnumTrait returns correct codes with config: prefix, postfix and shortName"() {
+    @SuppressWarnings('GroovyAssignabilityCheck')
+    def 'test that the enum implementing I18nEnumTrait returns correct codes with config: prefix, postfix and shortName'() {
         given:
         setConfig(prefix: 'prefix.', postfix: 'postfix', shortName: true)
 
@@ -88,6 +89,7 @@ class I18nEnumTraitSpec extends Specification {
 }
 
 enum EnumImplementsTrait implements I18nEnumTrait {
+
     ONE,
     Two,
     three

@@ -6,21 +6,22 @@ import org.grails.config.PropertySourcesConfig
 
 class GrailsConfigDefaultAnnotatedEnumSpec extends AnnotationSpecification {
 
-    def source = """
-				package test
-				import grails.plugins.i18nEnums.annotations.I18nEnum
+    def source = '''
+                package test
+                import grails.plugins.i18nEnums.annotations.I18nEnum
 
-				@I18nEnum
-				enum DefaultAnnotatedEnum {
-					ONE,
-					Two,
-					three
-				}
-			"""
+                @I18nEnum
+                enum DefaultAnnotatedEnum {
+
+                    ONE,
+                    Two,
+                    three
+                }
+            '''
 
     def setup() {
-        Holders.config = new PropertySourcesConfig([ grails: [plugin: [i18nEnum: [
-                prefix:'pre',
+        Holders.config = new PropertySourcesConfig([grails: [plugin: [i18nEnum: [
+                prefix: 'pre',
                 postfix: 'post',
                 defaultNameCase: DefaultNameCase.LOWER_CASE,
                 shortName: true
@@ -32,8 +33,7 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends AnnotationSpecification {
         Holders.config = null
     }
 
-
-    def "test that the annotated enum default message returns correct values"() {
+    def 'test that the annotated enum default message returns correct values'() {
         when:
         def clazz = add_class_to_classpath(source)
 
@@ -43,9 +43,7 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends AnnotationSpecification {
         clazz.three.defaultMessage == 'three'
     }
 
-
-
-    def "test that the annotated enum arguments returns correct values"() {
+    def 'test that the annotated enum arguments returns correct values'() {
         when:
         def clazz = add_class_to_classpath(source)
 
@@ -55,7 +53,7 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends AnnotationSpecification {
         clazz.three.arguments == []
     }
 
-    def "test that the annotated enum codes returns correct values"() {
+    def 'test that the annotated enum codes returns correct values'() {
         when:
         def clazz = add_class_to_classpath(source)
 
@@ -64,6 +62,5 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends AnnotationSpecification {
         clazz.Two.codes == ['pre.DefaultAnnotatedEnum.TWO.post', 'pre.DefaultAnnotatedEnum.Two.post', 'pre.DefaultAnnotatedEnum.two.post']
         clazz.three.codes == ['pre.DefaultAnnotatedEnum.THREE.post', 'pre.DefaultAnnotatedEnum.three.post', 'pre.DefaultAnnotatedEnum.three.post']
     }
-
 
 }

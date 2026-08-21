@@ -9,9 +9,9 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends AnnotationSpecification 
             import grails.plugins.i18nEnums.annotations.I18nEnum
             import org.springframework.context.MessageSourceResolvable
 
-
             @I18nEnum
             public enum Test implements MessageSourceResolvable {
+
                 ONE,
                 two,
                 Three
@@ -20,11 +20,10 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends AnnotationSpecification 
                 ${it}
 
             }
-			"""
+            """
     }
 
-
-    def "test that if the getCodes is already implemented, it is not being implemented again"() {
+    def 'test that if the getCodes is already implemented, it is not being implemented again'() {
 
         when:
         def clazz = add_class_to_classpath(source("""
@@ -39,7 +38,7 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends AnnotationSpecification 
         clazz.Three.codes == ['some.other.code']
     }
 
-    def "test that if the getArguments is already implemented, it is not being implemented again"() {
+    def 'test that if the getArguments is already implemented, it is not being implemented again'() {
 
         when:
         def clazz = add_class_to_classpath(source("""
@@ -54,18 +53,18 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends AnnotationSpecification 
         clazz.Three.arguments == [1, 'A']
     }
 
-    def "test that if the getDefaultMessage is already implemented, it is not being implemented again"() {
+    def 'test that if the getDefaultMessage is already implemented, it is not being implemented again'() {
 
         when:
-        def clazz = add_class_to_classpath(source("""
+        def clazz = add_class_to_classpath(source('''
                 @Override
                 String getDefaultMessage() {
                     return "Another default message"
-                }"""))
+                }'''))
 
         then:
-        clazz.ONE.defaultMessage == "Another default message"
-        clazz.two.defaultMessage == "Another default message"
-        clazz.Three.defaultMessage == "Another default message"
+        clazz.ONE.defaultMessage == 'Another default message'
+        clazz.two.defaultMessage == 'Another default message'
+        clazz.Three.defaultMessage == 'Another default message'
     }
 }

@@ -12,8 +12,9 @@ import java.lang.annotation.Target
 @CompileStatic
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-@GroovyASTTransformationClass("grails.plugins.i18nEnums.transformation.I18nEnumTransformation")
+@GroovyASTTransformationClass('grails.plugins.i18nEnums.transformation.I18nEnumTransformation')
 public @interface I18nEnum {
+
     String prefix() default ''
 
     String postfix() default ''
