@@ -1,69 +1,7 @@
-import java.time.Instant
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-
-apply plugin: 'groovy'
-apply plugin: 'org.apache.grails.gradle.grails-plugin'
-apply plugin: 'org.apache.grails.gradle.grails-publish'
-
-version = projectVersion
-group = 'org.grails.plugins'
-
-repositories {
-    mavenCentral()
-    maven { url = 'https://repo.grails.org/grails/restricted' }
-    maven {
-        url = 'https://repository.apache.org/content/groups/snapshots'
-        content {
-            includeVersionByRegex('org[.]apache[.](grails|groovy).*', '.*', '.*-SNAPSHOT')
-        }
-    }
+plugins {
+    id 'idea'
+    id 'config.docs'
+    id 'config.publish-root'
 }
 
-ext {
-    buildInstant = java.util.Optional.ofNullable(System.getenv("SOURCE_DATE_EPOCH"))
-            .filter(s -> !s.isEmpty())
-            .map(Long::parseLong)
-            .map(Instant::ofEpochSecond)
-            .orElseGet(Instant::now) as Instant
-    formattedBuildDate = DateTimeFormatter.ISO_INSTANT.format(buildInstant)
-    buildDate = buildInstant.atZone(ZoneOffset.UTC) // for reproducible builds
-}
-
-dependencies {
-    compileOnly platform("org.apache.grails:grails-bom:$grailsVersion")
-    compileOnly 'org.apache.grails:grails-dependencies-starter-web'
-
-    testImplementation platform("org.apache.grails:grails-bom:$grailsVersion")
-    testImplementation 'org.apache.grails:grails-dependencies-starter-web'
-    testImplementation 'org.apache.grails:grails-testing-support-web'
-}
-
-tasks.withType(Test).configureEach {
-    useJUnitPlatform()
-    testLogging {
-        events 'passed', 'skipped', 'failed'
-    }
-}
-groovydoc {
-    excludes = ['**/*GrailsPlugin.groovy', '**/Application.groovy']
-}
-
-grailsPublish {
-    githubSlug = 'grails-plugins/i18n-enums'
-    license {
-        name = 'Apache-2.0'
-    }
-    title = 'I18n-Enums Plugin'
-    desc = 'Adds an annotation usable on Enums to easy add and implement the MessageSourceResolvable interface in an standard way throughout a grails project.'
-    developers = [
-            sbglasius   : 'Søren Berg Glasius',
-            burtbeckwith: 'Burt Beckwith',
-            jdaugherty  : 'James Daugherty',
-            bkoehm      : 'Brian Koehmstedt'
-    ]
-}
-
-compileJava.options.release = javaVersion.toInteger()
-
-apply from: layout.projectDirectory.file('gradle/docs-config.gradle')
+// Intentionally left blank - use composition instead
