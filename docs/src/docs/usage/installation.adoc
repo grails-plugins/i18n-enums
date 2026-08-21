@@ -1,0 +1,38 @@
+[[installation]]
+=== Installation
+
+In your `build.gradle` add the plugin to your `dependencies`:
+
+==== Grails 7.x and later
+
+[source,groovy,subs="attributes+"]
+----
+implementation 'org.grails.plugins:i18n-enums:{version}'
+----
+
+NOTE: From version 7.0.0 the plugin lives at {projectUrl}.
+
+==== Grails 6.x
+
+[source,groovy]
+----
+implementation 'dk.glasius:i18n-enums:6.0.0'
+----
+
+==== Grails 5.x
+
+[source,groovy]
+----
+implementation 'dk.glasius:i18n-enums:5.0.0'
+----
+
+==== Grails 4.x
+
+There is no released version for Grails 4.x - try the Grails 3.x version.
+
+==== Grails 3.x
+
+[source,groovy]
+----
+compile 'org.grails.plugins:i18n-enums:2.0.2'
+----

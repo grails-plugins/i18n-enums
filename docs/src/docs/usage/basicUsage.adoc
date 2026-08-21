@@ -1,0 +1,70 @@
+[[basicUsage]]
+=== Basic usage
+
+There are two ways to use the plugin.
+
+Annotate the enum with `@I18nEnum`:
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.annotations.I18nEnum
+
+@I18nEnum
+enum MyEnum {
+    ONE, Two, three
+}
+----
+
+or implement the `I18nEnumTrait` on it:
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.traits.I18nEnumTrait
+
+enum MyEnum implements I18nEnumTrait {
+    ONE, Two, three
+}
+----
+
+Both generate the following codes for each constant:
+
+[source,groovy]
+----
+test.MyEnum.ONE.codes   == ['test.MyEnum.ONE',   'test.MyEnum.ONE',   'test.MyEnum.one']
+test.MyEnum.Two.codes   == ['test.MyEnum.TWO',   'test.MyEnum.Two',   'test.MyEnum.two']
+test.MyEnum.three.codes == ['test.MyEnum.THREE', 'test.MyEnum.three', 'test.MyEnum.three']
+----
+
+and the following default messages:
+
+[source,groovy]
+----
+test.MyEnum.ONE.defaultMessage   == 'ONE'
+test.MyEnum.Two.defaultMessage   == 'Two'
+test.MyEnum.three.defaultMessage == 'three'
+----
+
+As you can see, the codes come in three variations - `UPPER_CASE`, `UNCHANGED` and `LOWER_CASE` - and
+the default message is simply the enum value.
+
+Because the constants implement `MessageSourceResolvable`, they can be resolved directly:
+
+[source,groovy]
+----
+messageSource.getMessage(MyEnum.ONE, locale)
+----
+
+and in a GSP:
+
+[source,html]
+----
+<g:message message="${MyEnum.ONE}"/>
+----
+
+The difference between the two flavours is configurability: the trait can only be configured from the
+application configuration (see <<configuration>>), while the annotation additionally supports
+fine-grained per-enum configuration (see <<advancedUsage>>).

@@ -1,15 +1,8 @@
-= I18n Enums
-:doctype: book
-:author: Søren Berg Glasius
-:email: soeren@glasius.dk
-:source-highlighter: coderay
-:numbered:
-:imagesdir: ./images
+= I18n Enums Plugin - Reference Documentation
+Søren Berg Glasius
 
-include::introduction.adoc[leveloffset=2]
+include::introduction.adoc[]
 
-include::installation.adoc[leveloffset=2]
+include::usage.adoc[]
 
-include::usage.adoc[leveloffset=2]
-
-include::changelog.adoc[leveloffset=2]
+include::releaseNotes.adoc[]

@@ -1,7 +1,8 @@
-= Change Log
-[[changes]]
+[[releaseNotes]]
+== Release Notes
 
-== Changes
+=== v7.0.1
+Built against the Grails 7.0.0 release, with dependency updates.
 
 === v7.0.0
 Ported to Grails 7.x
@@ -61,8 +62,8 @@ Grails event hook to precompile AST transformations before the rest of the Grail
 === v1.0.0
 The plugin was formerly known as *EnumMessageSourceResolvable*, but was renamed to I18nEnums for easier reading and writing. Functionality wise it has not changed from v1.0.0 of EnumMessageSourceResolvable.
 
-Now support configuration in Config.groovy - see documentation below
+Now supports configuration in `Config.groovy` - see <<configuration>>.
 
 === Previous versions
 
-For previous versions see [EnumMessageSourceResolvable|http://grails.org/plugin/enum-message-source-resolvable]
+For previous versions see EnumMessageSourceResolvable, which this plugin was renamed from.

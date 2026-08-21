@@ -1,17 +1,30 @@
-= Introduction
 [[introduction]]
+== Introduction
 
-This plugin adds an annotation on Enums to easy add and implement the `MessageSourceResolvable` interface. It was heavily
-inspired by this blog-entry by http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html[Rob Fletcher]
+This plugin makes Grails enums translatable. Annotate an enum with `@I18nEnum` - or implement the
+`I18nEnumTrait` - and it implements Spring's
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSourceResolvable.html[MessageSourceResolvable]
+interface, so the enum constant can be handed straight to Grails' `messageSource`, to `<g:message>`
+or to anything else that resolves message codes.
 
-== If you use it, let me know
+The codes are derived from the enum's package, class and constant name in a predictable way, and can
+be tuned per annotation or globally from the application configuration.
 
-If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
-Send me a tweet *@sbglasius*, send an email *soeren@glasius.dk*, or give it a ⭐ on GitHub - thank you!
+It was heavily inspired by
+http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html[this blog entry by Rob Fletcher].
 
-== Documentation for pre 2.x version of this plugin
+TIP: A runnable example lives in `examples/app1` in the
+{projectUrl}[source repository] - it wires all three flavours (plain annotation,
+annotation with overrides, and the trait) into a small Grails application.
 
-This documentation also applies for the latest v1.0.8 of the plugin (for Grails 2.x), except for using the `I18nEnumTrait`.
+=== If you use it, let me know
 
-== License
-Licensed under the Apache2.0 license. See http://www.apache.org/licenses/LICENSE-2.0 for more information.
+If you use this plugin in your application, let me know - it's always nice to know when one's work is
+used in the wild. Send an email to mailto:soeren@glasius.dk[soeren@glasius.dk], or give the plugin a
+⭐ on {projectUrl}[GitHub] - thank you!
+
+include::introduction/license.adoc[]
+
+include::introduction/acknowledgements.adoc[]
+
+include::introduction/sourceCode.adoc[]
