@@ -2,7 +2,8 @@
 project:
   name: "i18n-enums"
   title: "I18n Enums Plugin"
-  description: "Adds an annotation usable on Enums to easily add and implement the MessageSourceResolvable interface in a standard way throughout a Grails project."
+  description: "Adds an annotation usable on Enums to easily add and implement the\
+    \ MessageSourceResolvable interface in a standard way throughout a Grails project."
   org: "Grails Plugins"
 github:
   org: "grails-plugins"
@@ -11,10 +12,11 @@ license:
   name: "Apache-2.0"
 contributors:
   sbglasius: "Søren Berg Glasius"
-  burtbeckwith: "Burt Beckwith"
   jdaugherty: "James Daugherty"
+  burtbeckwith: "Burt Beckwith"
   bkoehm: "Brian Koehmstedt"
   jamesfredley: "James Fredley"
+  dauer: "Thomas Rasmussen"
 versions:
   current: "7.0.1"
   previous:
