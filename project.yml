@@ -18,8 +18,10 @@ contributors:
   jamesfredley: "James Fredley"
   dauer: "Thomas Rasmussen"
 versions:
-  current: "7.0.1"
+  current: "8.0.0-RC1"
   previous:
+  - "8.0.0-RC1"
+  - "8.0.x"
   - "7.0.1"
   - "7.0.0"
   ignore:
