@@ -1,0 +1,40 @@
+[[configuration]]
+=== Configuration
+
+Application-wide defaults are set under `grails.plugin.i18nEnum`. This is the only way to configure
+code generation for enums that use the `I18nEnumTrait`; for annotated enums it provides the defaults
+that individual annotation members override.
+
+In `application.yml`:
+
+[source,yaml]
+----
+grails:
+  plugin:
+    i18nEnum:
+      prefix: enum
+      postfix: label
+      shortName: true
+      defaultNameCase: ALL_CAPS
+----
+
+or in `application.groovy`:
+
+[source,groovy]
+----
+import grails.plugins.i18nEnums.DefaultNameCase
+
+grails {
+    plugin {
+        i18nEnum {
+            prefix = 'enum'
+            postfix = 'label'
+            shortName = true
+            defaultNameCase = DefaultNameCase.ALL_CAPS
+        }
+    }
+}
+----
+
+The setting names and their meanings are the same as the annotation members described in
+<<advancedUsage>>.

@@ -1,0 +1,6 @@
+[[sourceCode]]
+=== Source code
+
+The full source code for this plugin can be found on {projectUrl}[GitHub].
+
+For issues, improvements or new features go to the plugin's {projectUrl}/issues[GitHub issues].

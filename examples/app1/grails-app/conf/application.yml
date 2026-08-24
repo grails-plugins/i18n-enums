@@ -1,0 +1,26 @@
+---
+grails:
+  profile: web
+  codegen:
+    defaultPackage: app1
+  plugin:
+    # Repository-wide defaults for every @I18nEnum / I18nEnumTrait enum in this app.
+    # Individual annotations can override any of these - see Priority.groovy.
+    i18nEnum:
+      prefix: enum
+      postfix: label
+      shortName: false
+      defaultNameCase: CAPITALIZE
+info:
+  app:
+    name: '@info.app.name@'
+    version: '@info.app.version@'
+    grailsVersion: '@info.app.grailsVersion@'
+spring:
+  jmx:
+    unique-names: true
+  main:
+    banner-mode: "off"
+  groovy:
+    template:
+      check-template-location: false

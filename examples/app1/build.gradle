@@ -1,0 +1,46 @@
+plugins {
+    id 'config.example-app'
+}
+
+version = projectVersion
+group = 'app1'
+
+dependencies {
+
+    profile 'org.apache.grails.profiles:web'
+    console 'org.apache.grails:grails-console'
+
+    implementation platform("org.apache.grails:grails-bom:$grailsVersion")
+
+    implementation project(':i18n-enums')
+
+    implementation 'org.apache.grails:grails-core'
+    implementation 'org.apache.grails:grails-databinding'
+    implementation 'org.apache.grails:grails-gsp'
+    implementation 'org.apache.grails:grails-interceptors'
+    implementation 'org.apache.grails:grails-layout'
+    implementation 'org.apache.grails:grails-logging'
+    implementation 'org.apache.grails:grails-services'
+    implementation 'org.apache.grails:grails-url-mappings'
+    implementation 'org.apache.grails:grails-web-boot'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    runtimeOnly 'cloud.wondrify:asset-pipeline-grails'
+
+    // Grails 8's Gradle plugin auto-applies the Grails BOM to every declarable
+    // configuration, including the ones JaCoCo creates. That makes them non-empty, so
+    // JaCoCo's own defaultDependencies never fire and the agent/ant jars go missing
+    // ("Expected configuration ':app1:jacocoAgent' to contain exactly one file").
+    // Declaring them explicitly restores what JaCoCo would have contributed itself.
+    jacocoAgent "org.jacoco:org.jacoco.agent:$jacocoVersion"
+    jacocoAnt "org.jacoco:org.jacoco.ant:$jacocoVersion"
+
+    integrationTestImplementation testFixtures('org.apache.grails:grails-geb')
+
+    testImplementation 'org.apache.grails:grails-testing-support-web'
+    testImplementation 'org.spockframework:spock-core'
+}

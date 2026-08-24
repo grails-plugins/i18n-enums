@@ -1,0 +1,11 @@
+Locked against the grails-plugin-template file sync.
+
+config.docs.gradle's aggregateGroovyApiDoc re-ran Groovydoc in the root project using the
+plugin project's source and classpath. Gradle 9 (required by Grails 8) rejects that: a task
+in one project may not resolve a configuration owned by another project.
+
+  Resolution of the configuration ':i18n-enums:detachedConfiguration133' was attempted
+  without an exclusive lock. This is unsafe and not allowed.
+
+Our copy collects the plugin project's own groovydoc output instead. Remove this lock once
+the template ships a Gradle 9 compatible config.docs.gradle.

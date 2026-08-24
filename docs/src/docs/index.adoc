@@ -1,0 +1,8 @@
+= I18n Enums Plugin - Reference Documentation
+Søren Berg Glasius
+
+include::introduction.adoc[]
+
+include::usage.adoc[]
+
+include::releaseNotes.adoc[]

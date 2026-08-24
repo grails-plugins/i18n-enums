@@ -1,0 +1,8 @@
+Locked against the grails-plugin-template file sync.
+
+The template targets Grails 7 on Java 17; this branch targets Grails 8, which requires
+Java 21 or later and builds with Gradle 9. Remove this lock once the template moves to the
+same toolchain.
+
+Note that the Gradle wrapper under gradle/ has no equivalent escape hatch - the template's
+sync rsyncs that directory unconditionally, without honouring lock files.

@@ -1,0 +1,152 @@
+[[advancedUsage]]
+=== Advanced usage
+
+To get more control over how the codes and the default message are generated, add members to the
+annotation:
+
+[source,groovy]
+----
+@I18nEnum(prefix = '', postfix = '', shortName = false, defaultNameCase = DefaultNameCase.UNCHANGED)
+----
+
+The values above are the defaults. Any member you set overrides the corresponding application
+configuration setting; anything you leave out falls back to it.
+
+==== Prefix and postfix
+
+`prefix` controls what is added before the package name. If you do not add a dot after the prefix,
+one is added for you.
+
+`postfix` controls what is added after the enum constant. If you do not add a dot before the postfix,
+one is added for you.
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.annotations.I18nEnum
+
+@I18nEnum(prefix = 'enum', postfix = 'label')
+enum MyEnum {
+    ONE, Two, three
+}
+----
+
+generates:
+
+[source,groovy]
+----
+test.MyEnum.ONE.codes   == ['enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.one.label']
+test.MyEnum.Two.codes   == ['enum.test.MyEnum.TWO.label',   'enum.test.MyEnum.Two.label',   'enum.test.MyEnum.two.label']
+test.MyEnum.three.codes == ['enum.test.MyEnum.THREE.label', 'enum.test.MyEnum.three.label', 'enum.test.MyEnum.three.label']
+----
+
+==== shortName
+
+If you do not want the package name in the generated codes, set `shortName = true`:
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.annotations.I18nEnum
+
+@I18nEnum(shortName = true)
+enum MyEnum {
+    ONE, Two, three
+}
+----
+
+generates:
+
+[source,groovy]
+----
+test.MyEnum.ONE.codes   == ['MyEnum.ONE',   'MyEnum.ONE',   'MyEnum.one']
+test.MyEnum.Two.codes   == ['MyEnum.TWO',   'MyEnum.Two',   'MyEnum.two']
+test.MyEnum.three.codes == ['MyEnum.THREE', 'MyEnum.three', 'MyEnum.three']
+----
+
+==== defaultNameCase
+
+`defaultNameCase` controls the `defaultMessage`. It takes one of the values of
+`grails.plugins.i18nEnums.DefaultNameCase`:
+
+[source,groovy]
+----
+UPPER_CASE, LOWER_CASE, CAPITALIZE, ALL_CAPS, UNCHANGED
+----
+
+where `UNCHANGED` is the default.
+
+`DefaultNameCase.CAPITALIZE`:
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.DefaultNameCase
+import grails.plugins.i18nEnums.annotations.I18nEnum
+
+@I18nEnum(defaultNameCase = DefaultNameCase.CAPITALIZE)
+enum MyEnum {
+    ONE, Two, three
+}
+----
+
+gives the default messages:
+
+[source,groovy]
+----
+test.MyEnum.ONE.defaultMessage   == 'One'
+test.MyEnum.Two.defaultMessage   == 'Two'
+test.MyEnum.three.defaultMessage == 'Three'
+----
+
+`DefaultNameCase.ALL_CAPS` additionally splits the constant on underscores:
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.DefaultNameCase
+import grails.plugins.i18nEnums.annotations.I18nEnum
+
+@I18nEnum(defaultNameCase = DefaultNameCase.ALL_CAPS)
+enum MyEnum {
+    ONE, Two, three, Four_five
+}
+----
+
+gives:
+
+[source,groovy]
+----
+test.MyEnum.ONE.defaultMessage       == 'One'
+test.MyEnum.Two.defaultMessage       == 'Two'
+test.MyEnum.three.defaultMessage     == 'Three'
+test.MyEnum.Four_five.defaultMessage == 'Four Five'
+----
+
+`DefaultNameCase.LOWER_CASE`:
+
+[source,groovy]
+----
+package test
+
+import grails.plugins.i18nEnums.DefaultNameCase
+import grails.plugins.i18nEnums.annotations.I18nEnum
+
+@I18nEnum(defaultNameCase = DefaultNameCase.LOWER_CASE)
+enum MyEnum {
+    ONE, Two, three
+}
+----
+
+gives:
+
+[source,groovy]
+----
+test.MyEnum.ONE.defaultMessage   == 'one'
+test.MyEnum.Two.defaultMessage   == 'two'
+test.MyEnum.three.defaultMessage == 'three'
+----

@@ -1,1 +1,3 @@
-java=17.0.15-librca
+java=21.0.12-librca
+gradle=9.6.0
+groovy=5.0.8

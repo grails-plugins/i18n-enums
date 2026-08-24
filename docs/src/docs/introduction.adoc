@@ -1,0 +1,30 @@
+[[introduction]]
+== Introduction
+
+This plugin makes Grails enums translatable. Annotate an enum with `@I18nEnum` - or implement the
+`I18nEnumTrait` - and it implements Spring's
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSourceResolvable.html[MessageSourceResolvable]
+interface, so the enum constant can be handed straight to Grails' `messageSource`, to `<g:message>`
+or to anything else that resolves message codes.
+
+The codes are derived from the enum's package, class and constant name in a predictable way, and can
+be tuned per annotation or globally from the application configuration.
+
+It was heavily inspired by
+http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html[this blog entry by Rob Fletcher].
+
+TIP: A runnable example lives in `examples/app1` in the
+{projectUrl}[source repository] - it wires all three flavours (plain annotation,
+annotation with overrides, and the trait) into a small Grails application.
+
+=== If you use it, let me know
+
+If you use this plugin in your application, let me know - it's always nice to know when one's work is
+used in the wild. Send an email to mailto:soeren@glasius.dk[soeren@glasius.dk], or give the plugin a
+⭐ on {projectUrl}[GitHub] - thank you!
+
+include::introduction/license.adoc[]
+
+include::introduction/acknowledgements.adoc[]
+
+include::introduction/sourceCode.adoc[]
