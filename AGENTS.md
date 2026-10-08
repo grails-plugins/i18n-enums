@@ -6,9 +6,9 @@ The **I18n Enums** Grails plugin makes enums translatable. An enum annotated wit
 implementing `I18nEnumTrait`) implements Spring's `MessageSourceResolvable`, so its constants can be
 resolved directly by Grails' `messageSource` or `<g:message>`.
 
-- **Language:** Groovy 5.0.8 on Java 21
+- **Language:** Groovy 5.1.3 on Java 21
 - **Framework:** Grails 8.x
-- **Build System:** Gradle 9.6.0 (with wrapper)
+- **Build System:** Gradle 9.8.0 (with wrapper)
 - **Published artifact:** `org.grails.plugins:i18n-enums`
 - **Current Version:** 8.0.0-SNAPSHOT
 - **License:** Apache 2.0
@@ -107,8 +107,8 @@ i18n-enums/
 Use SDKMAN to install the correct tool versions (see `.sdkmanrc`):
 
 - Java: `21.0.12-librca`
-- Gradle: `9.6.0`
-- Groovy: `5.0.8`
+- Gradle: `9.8.0`
+- Groovy: `5.1.3`
 
 Run `sdk env install` to set up the environment.
 
